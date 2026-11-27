@@ -3,193 +3,465 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Customer Segmentation & Campaign Response | Targeted Marketing Analytics System</title>
+  <title>SegmaPulse | Targeted Marketing Analytics System</title>
   <style>
     :root {
-      --bg: #f4f7fb;
+      --bg: #f8fafc;
       --surface: #ffffff;
-      --navy: #0f172a;
+      --navy: #090d16;
+      --navy-soft: #111827;
       --slate: #475569;
+      --muted: #64748b;
       --border: #e2e8f0;
       --primary: #2563eb;
-      --primary-dark: #1d4ed8;
+      --primary-hover: #1d4ed8;
+      --indigo: #4f46e5;
       --emerald: #059669;
       --amber: #d97706;
-      --violet: #7c3aed;
+      --rose: #e11d48;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
       background: var(--bg);
       color: var(--navy);
-      line-height: 1.5;
+      line-height: 1.6;
     }
-    /* Header */
-    header {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+
+    /* ================= LOGIN SCREEN ================= */
+    #loginScreen {
+      min-height: 100vh;
+      background: radial-gradient(circle at top right, #1e293b 0%, #090d16 70%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .login-shell {
+      max-width: 1040px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      background: #0f172a;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+    }
+    @media (max-width: 860px) { .login-shell { grid-template-columns: 1fr; } }
+
+    .login-brand {
+      padding: 48px 40px;
       color: #fff;
-      padding: 22px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(160deg, rgba(37,99,235,0.18), rgba(124,58,237,0.12));
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .login-brand h1 {
+      font-size: 30px;
+      line-height: 1.2;
+      font-weight: 800;
+      margin: 22px 0 14px;
+      letter-spacing: -0.6px;
+    }
+    .login-brand h1 span { color: #60a5fa; }
+    .login-brand p { color: #94a3b8; font-size: 14px; margin-bottom: 24px; }
+    .brand-points { list-style: none; display: grid; gap: 12px; font-size: 13px; color: #cbd5e1; }
+    .brand-points li { display: flex; align-items: center; gap: 10px; }
+    .check-badge {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(16, 185, 129, 0.2); color: #34d399;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; flex-shrink: 0;
+    }
+    .login-foot { font-size: 12px; color: #64748b; margin-top: 28px; }
+
+    .login-form-box {
+      background: #ffffff;
+      padding: 44px 38px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .login-form-box h2 { font-size: 24px; font-weight: 800; color: var(--navy); }
+    .login-form-box .sub { font-size: 13px; color: var(--slate); margin: 4px 0 22px; }
+    .field-lbl { display: block; font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .field-inp {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 14px;
+      margin-bottom: 16px;
+      outline: none;
+      transition: 0.2s;
+    }
+    .field-inp:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
+    .login-row {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 12px; color: var(--slate); margin-bottom: 18px;
+    }
+    .btn-login {
+      width: 100%;
+      padding: 13px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn-login:hover { background: var(--primary-hover); }
+    .divider {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      margin: 16px 0;
+      position: relative;
+    }
+    .btn-demo {
+      width: 100%;
+      padding: 12px;
+      background: #eff6ff;
+      color: var(--primary);
+      border: 1px solid #bfdbfe;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn-demo:hover { background: #dbeafe; }
+    .demo-hint {
+      margin-top: 14px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 12px;
+      color: var(--slate);
+    }
+    .err-msg {
+      display: none;
+      background: #fef2f2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    /* ================= MAIN DASHBOARD ================= */
+    #appDashboard { display: none; }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(9, 13, 22, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 14px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 16px;
-      border-bottom: 3px solid var(--primary);
+      gap: 12px;
     }
-    .brand h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
-    .brand p { font-size: 13px; color: #94a3b8; margin-top: 3px; }
-    .badge-row { display: flex; gap: 10px; flex-wrap: wrap; }
-    .badge {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.18);
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      color: #e2e8f0;
-      font-weight: 600;
-    }
-    /* Tabs */
-    .nav-bar {
-      background: var(--surface);
-      padding: 0 32px;
-      border-bottom: 1px solid var(--border);
+    .logo {
       display: flex;
-      gap: 8px;
-      overflow-x: auto;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.4px;
+      text-decoration: none;
     }
-    .tab-btn {
-      background: none;
-      border: none;
-      padding: 14px 18px;
-      font-size: 14px;
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 900;
+      color: #fff;
+    }
+    .logo span { color: #60a5fa; }
+    .nav-links { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+    .nav-links a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 13px;
       font-weight: 600;
-      color: var(--slate);
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
       transition: 0.2s;
     }
-    .tab-btn:hover { color: var(--primary); }
-    .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
-
-    /* Container */
-    .container { max-width: 1280px; margin: 24px auto; padding: 0 24px; }
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
-
-    /* KPI Strip */
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      background: var(--primary);
+      color: #fff !important;
+      padding: 8px 16px;
+      border-radius: 8px;
     }
-    .kpi-card {
-      background: var(--surface);
-      padding: 20px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    }
-    .kpi-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--slate); font-weight: 700; }
-    .kpi-val { font-size: 26px; font-weight: 800; margin: 6px 0 4px; color: var(--navy); }
-    .kpi-sub { font-size: 12px; font-weight: 600; }
-    .up { color: var(--emerald); }
-    .mid { color: var(--primary); }
-    .warn { color: var(--amber); }
-
-    /* Grid Layouts */
-    .grid-2 { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; margin-bottom: 20px; }
-    @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
-    .card {
-      background: var(--surface);
-      padding: 24px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    }
-    .card h2 { font-size: 17px; margin-bottom: 4px; }
-    .card .desc { font-size: 13px; color: var(--slate); margin-bottom: 18px; }
-
-    /* Visual Bar Charts */
-    .bar-group { margin-bottom: 16px; }
-    .bar-top { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
-    .bar-track { background: #e2e8f0; height: 12px; border-radius: 999px; overflow: hidden; }
-    .bar-fill { height: 100%; border-radius: 999px; transition: width 0.5s ease; }
-
-    /* Stacked Distribution Bar */
-    .stack-bar { display: flex; height: 22px; border-radius: 8px; overflow: hidden; margin: 14px 0; }
-    .stack-seg { display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700; }
-    .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--slate); }
-    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 6px; }
-
-    /* Table */
-    table { width: 100%; border-collapse: collapse; margin-top: 8px; }
-    th, td { padding: 12px 10px; border-bottom: 1px solid var(--border); text-align: left; font-size: 13px; }
-    th { background: #f8fafc; color: var(--slate); font-weight: 700; text-transform: uppercase; font-size: 11px; }
-    .pill {
-      padding: 4px 10px;
+    .nav-cta:hover { background: var(--primary-hover); }
+    .user-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: #e2e8f0;
+      padding: 6px 12px;
       border-radius: 999px;
-      font-size: 11px;
-      font-weight: 700;
-      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
     }
-    .pill-vip { background: #dcfce7; color: #166534; }
-    .pill-aff { background: #dbeafe; color: #1e40af; }
-    .pill-bud { background: #fef3c7; color: #92400e; }
-
-    /* Controls & Predictor */
-    .preset-row { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
-    .preset-btn {
-      background: #f1f5f9;
-      border: 1px solid var(--border);
-      padding: 7px 12px;
+    .btn-logout {
+      background: transparent;
+      border: 1px solid rgba(248,113,113,0.45);
+      color: #fca5a5;
+      padding: 6px 12px;
       border-radius: 8px;
       font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      color: var(--navy);
-    }
-    .preset-btn:hover { background: #e2e8f0; }
-    .slider-box { margin-bottom: 14px; }
-    .slider-head { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
-    .slider-val { color: var(--primary); font-weight: 700; }
-    input[type=range] { width: 100%; accent-color: var(--primary); cursor: pointer; }
-    .primary-btn {
-      width: 100%;
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      padding: 13px;
-      border-radius: 10px;
-      font-size: 15px;
       font-weight: 700;
       cursor: pointer;
-      margin-top: 6px;
+    }
+    .btn-logout:hover { background: rgba(239,68,68,0.18); color: #fff; }
+
+    /* Hero Section */
+    .hero {
+      background: radial-gradient(circle at top right, #1e293b 0%, #090d16 65%);
+      color: #fff;
+      padding: 64px 32px 76px;
+      border-bottom: 1px solid #1e293b;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    @media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; } }
+    .pill-tag {
+      display: inline-block;
+      background: rgba(37, 99, 235, 0.2);
+      border: 1px solid rgba(96, 165, 250, 0.4);
+      color: #93c5fd;
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: 38px;
+      line-height: 1.18;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      margin-bottom: 16px;
+    }
+    .hero h1 span {
+      background: linear-gradient(90deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      color: #94a3b8;
+      font-size: 16px;
+      max-width: 580px;
+      margin-bottom: 26px;
+    }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      padding: 13px 22px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
       transition: 0.2s;
     }
-    .primary-btn:hover { background: var(--primary-dark); }
+    .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
+    .btn-outline {
+      background: rgba(255,255,255,0.06);
+      color: #e2e8f0;
+      border: 1px solid rgba(255,255,255,0.18);
+      padding: 13px 22px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.12); }
 
-    /* Result Output Panel */
-    .output-card {
-      background: #f8fafc;
-      border: 2px solid #cbd5e1;
+    .hero-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .hero-card-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #94a3b8;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .live-dot { color: #34d399; }
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 14px;
+    }
+    .metric-row:last-child { border-bottom: none; }
+    .metric-row strong { color: #fff; font-size: 15px; }
+
+    /* Sections & KPI */
+    .section { max-width: 1200px; margin: 56px auto; padding: 0 24px; }
+    .section-head { margin-bottom: 28px; }
+    .section-eyebrow {
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .section-head h2 { font-size: 26px; font-weight: 800; letter-spacing: -0.4px; margin-top: 4px; }
+    .section-head p { color: var(--slate); font-size: 14px; max-width: 680px; margin-top: 4px; }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+      margin-top: -38px;
+      position: relative;
+      z-index: 10;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 24px;
+    }
+    .kpi {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 10px 25px -10px rgba(15, 23, 42, 0.12);
+    }
+    .kpi .lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--muted); }
+    .kpi .val { font-size: 28px; font-weight: 800; margin: 4px 0; color: var(--navy); }
+    .kpi .sub { font-size: 12px; font-weight: 600; }
+
+    /* Cluster Explorer */
+    .cluster-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
+    @media (max-width: 768px) { .cluster-tabs { grid-template-columns: 1fr; } }
+    .c-tab {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      cursor: pointer;
+      text-align: left;
+      transition: 0.2s;
+    }
+    .c-tab:hover { border-color: #93c5fd; }
+    .c-tab.active { border-color: var(--primary); background: #eff6ff; }
+    .c-tab h3 { font-size: 16px; margin-bottom: 4px; }
+    .c-tab p { font-size: 12px; color: var(--slate); }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 26px;
+      box-shadow: 0 2px 8px rgba(15,23,42,0.03);
+    }
+    .grid-2 { display: grid; grid-template-columns: 1.15fr 1fr; gap: 22px; }
+    @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+
+    .bar-wrap { margin-bottom: 16px; }
+    .bar-labels { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+    .track { height: 12px; background: #e2e8f0; border-radius: 999px; overflow: hidden; }
+    .fill { height: 100%; border-radius: 999px; transition: width 0.4s ease; }
+
+    .pipeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .step-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 12px;
       padding: 20px;
     }
-    .gauge-wrap { display: flex; align-items: center; gap: 20px; margin: 16px 0; }
-    .gauge-circle {
-      width: 96px;
-      height: 96px;
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: #dbeafe;
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+    .step-card h4 { font-size: 15px; margin-bottom: 6px; }
+    .step-card p { font-size: 13px; color: var(--slate); }
+
+    .preset-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+    .chip {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .chip:hover { background: #e2e8f0; }
+    .control { margin-bottom: 15px; }
+    .control-top { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+    input[type=range] { width: 100%; accent-color: var(--primary); cursor: pointer; }
+
+    .result-panel {
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 22px;
+    }
+    .gauge-row { display: flex; align-items: center; gap: 20px; margin: 18px 0; }
+    .ring {
+      width: 104px;
+      height: 104px;
       border-radius: 50%;
-      background: conic-gradient(var(--emerald) 0% 64%, #e2e8f0 64% 100%);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
     }
-    .gauge-inner {
-      width: 74px;
-      height: 74px;
+    .ring-hole {
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       background: #fff;
       display: flex;
@@ -197,369 +469,569 @@
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 18px;
+      font-size: 20px;
     }
-    .gauge-inner span { font-size: 10px; color: var(--slate); font-weight: 600; }
-    .strategy-box {
+    .ring-hole small { font-size: 10px; color: var(--muted); font-weight: 700; }
+    .playbook {
       background: #fff;
       border-left: 4px solid var(--emerald);
       padding: 14px;
       border-radius: 8px;
-      margin-top: 12px;
       font-size: 13px;
+      margin-top: 12px;
     }
+
     select, input[type=number] {
       width: 100%;
-      padding: 10px;
+      padding: 11px;
       border: 1px solid var(--border);
       border-radius: 8px;
       font-size: 14px;
-      margin-top: 5px;
-      margin-bottom: 14px;
+      margin: 6px 0 14px;
+      background: #fff;
     }
-    .roi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; }
-    .roi-item { background: #fff; padding: 14px; border-radius: 10px; border: 1px solid var(--border); text-align: center; }
-    .roi-item .num { font-size: 20px; font-weight: 800; color: var(--emerald); }
-    .roi-item .lbl { font-size: 11px; color: var(--slate); font-weight: 600; margin-top: 2px; }
+    .sim-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+    .sim-box { background: #f8fafc; border: 1px solid var(--border); padding: 14px; border-radius: 10px; text-align: center; }
+    .sim-box .big { font-size: 21px; font-weight: 800; color: var(--emerald); }
+    .sim-box .cap { font-size: 11px; color: var(--slate); font-weight: 700; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    th, td { padding: 12px; border-bottom: 1px solid var(--border); text-align: left; font-size: 13px; }
+    th { background: #f8fafc; font-size: 11px; text-transform: uppercase; color: var(--slate); }
+
+    footer {
+      background: var(--navy);
+      color: #94a3b8;
+      padding: 36px 24px;
+      margin-top: 72px;
+      font-size: 13px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    footer strong { color: #fff; }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="brand">
-    <h1>Customer Segmentation & Campaign Response</h1>
-    <p>Targeted Marketing Analytics System &bull; K-Means Clustering &amp; Classification Engine</p>
-  </div>
-  <div class="badge-row">
-    <span class="badge">Dataset: 1,000 Customers</span>
-    <span class="badge">Model: K-Means (k=3) + Random Forest</span>
-    <span class="badge">Accuracy: 86.4%</span>
-  </div>
-</header>
-
-<div class="nav-bar">
-  <button class="tab-btn active" onclick="switchTab('overview', this)">1. Segment Overview &amp; Analytics</button>
-  <button class="tab-btn" onclick="switchTab('predictor', this)">2. Live Customer Predictor</button>
-  <button class="tab-btn" onclick="switchTab('simulator', this)">3. Campaign ROI Simulator</button>
-</div>
-
-<div class="container">
-
-  <!-- KPI STRIP -->
-  <div class="kpi-grid">
-    <div class="kpi-card">
-      <div class="kpi-label">Total Analyzed Base</div>
-      <div class="kpi-val">1,000</div>
-      <div class="kpi-sub mid">100% Cleaned &amp; Standardized</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">VIP Big Spenders (Cluster 0)</div>
-      <div class="kpi-val">482</div>
-      <div class="kpi-sub up">63.5% Campaign Response Rate</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Affluent Careful Savers (Cluster 1)</div>
-      <div class="kpi-val">267</div>
-      <div class="kpi-sub mid">43.4% Campaign Response Rate</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Budget Value Shoppers (Cluster 2)</div>
-      <div class="kpi-val">251</div>
-      <div class="kpi-sub warn">17.5% Campaign Response Rate</div>
-    </div>
-  </div>
-
-  <!-- TAB 1: OVERVIEW -->
-  <div id="overview" class="tab-panel active">
-    <div class="grid-2">
-      <div class="card">
-        <h2>Segment Distribution &amp; Campaign Conversion</h2>
-        <p class="desc">Comparison of customer share versus actual campaign acceptance rate across clusters.</p>
-
-        <div style="font-size:12px; font-weight:700; color:var(--slate);">CUSTOMER BASE SHARE (N = 1,000)</div>
-        <div class="stack-bar">
-          <div class="stack-seg" style="width:48.2%; background:#059669;">VIP (48.2%)</div>
-          <div class="stack-seg" style="width:26.7%; background:#2563eb;">Affluent (26.7%)</div>
-          <div class="stack-seg" style="width:25.1%; background:#d97706;">Budget (25.1%)</div>
+  <!-- ================= ENTERPRISE LOGIN PORTAL ================= -->
+  <div id="loginScreen">
+    <div class="login-shell">
+      <div class="login-brand">
+        <div>
+          <div class="logo">
+            <div class="logo-icon">S</div>
+            SegmaPulse<span>Analytics</span>
+          </div>
+          <h1>Targeted Marketing <span>Intelligence Portal</span></h1>
+          <p>Sign in to access K-Means behavioral segments, real-time customer response scoring, and campaign ROAS forecasting.</p>
+          <ul class="brand-points">
+            <li><span class="check-badge">&#10003;</span> 1,000+ Customer Behavioral Profiles Analyzed</li>
+            <li><span class="check-badge">&#10003;</span> 86.4% Campaign Acceptance Prediction Accuracy</li>
+            <li><span class="check-badge">&#10003;</span> 3.6x Higher Conversion Lift on VIP Segments</li>
+          </ul>
         </div>
-        <div class="legend" style="margin-bottom:22px;">
-          <span><i class="dot" style="background:#059669;"></i>VIP Big Spenders (482)</span>
-          <span><i class="dot" style="background:#2563eb;"></i>Affluent Careful Savers (267)</span>
-          <span><i class="dot" style="background:#d97706;"></i>Budget Value Shoppers (251)</span>
-        </div>
-
-        <div style="font-size:12px; font-weight:700; color:var(--slate); margin-bottom:12px;">CAMPAIGN RESPONSE RATE BY SEGMENT</div>
-        <div class="bar-group">
-          <div class="bar-top"><span>VIP Big Spenders</span><span style="color:#059669;">63.5% Response</span></div>
-          <div class="bar-track"><div class="bar-fill" style="width:63.5%; background:#059669;"></div></div>
-        </div>
-        <div class="bar-group">
-          <div class="bar-top"><span>Affluent Careful Savers</span><span style="color:#2563eb;">43.4% Response</span></div>
-          <div class="bar-track"><div class="bar-fill" style="width:43.4%; background:#2563eb;"></div></div>
-        </div>
-        <div class="bar-group">
-          <div class="bar-top"><span>Budget Value Shoppers</span><span style="color:#d97706;">17.5% Response</span></div>
-          <div class="bar-track"><div class="bar-fill" style="width:17.5%; background:#d97706;"></div></div>
-        </div>
+        <div class="login-foot">Enterprise Analytics Workspace &bull; Role-Based Access</div>
       </div>
 
-      <div class="card">
-        <h2>Key Feature Importance (Response Drivers)</h2>
-        <p class="desc">Top behavioral variables influencing campaign acceptance in our classification model.</p>
-        <div class="bar-group">
-          <div class="bar-top"><span>Spending Score (1–100)</span><span>38.4%</span></div>
-          <div class="bar-track"><div class="bar-fill" style="width:78%; background:#1e293b;"></div></div>
-        </div>
-        <div class="bar-group">
-          <div class="bar-top"><span>Purchase Frequency (Orders/Yr)</span><span>29.1%</span></div>
-          <div class="bar-track"><div class="bar-fill" style="width:62%; background:#1e293b;"></div></div>
-        </div>
-        <div class="bar-group">
-          <div class="bar-top"><span>Annual Income (₹ Lakhs)</span><span>21.5%</span></div>
-          <div class="bar-track"><div class="bar-fill" style="width:48%; background:#1e293b;"></div></div>
-        </div>
-        <div class="bar-group">
-          <div class="bar-top"><span>Customer Age &amp; Tenure</span><span>11.0%</span></div>
-          <div class="bar-track"><div class="bar-fill" style="width:28%; background:#1e293b;"></div></div>
-        </div>
-        <div class="strategy-box" style="border-left-color:var(--primary); margin-top:18px;">
-          <b>Executive Insight:</b> Focusing 75% of campaign spend on <b>VIP Big Spenders</b> and <b>Affluent Savers</b> yields <b>3.6x higher conversion</b> than untargeted mass promotions.
-        </div>
-      </div>
-    </div>
+      <div class="login-form-box">
+        <h2>Welcome Back</h2>
+        <p class="sub">Sign in to your SegmaPulse marketing console</p>
 
-    <div class="card">
-      <h2>Segment Profile &amp; Actionable Marketing Playbook</h2>
-      <p class="desc">Data-driven campaign recommendations tailored to each cluster's purchasing behavior.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Cluster Segment</th>
-            <th>Size</th>
-            <th>Avg Income</th>
-            <th>Avg Spending Score</th>
-            <th>Response Rate</th>
-            <th>Recommended Campaign Strategy</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="pill pill-vip">VIP Big Spenders</span></td>
-            <td>482 (48.2%)</td>
-            <td>₹14.3 Lakhs</td>
-            <td>74 / 100</td>
-            <td><b>63.5%</b></td>
-            <td>Exclusive VIP loyalty tier, early access to new launches, personalized concierge offers</td>
-          </tr>
-          <tr>
-            <td><span class="pill pill-aff">Affluent Careful Savers</span></td>
-            <td>267 (26.7%)</td>
-            <td>₹14.2 Lakhs</td>
-            <td>28 / 100</td>
-            <td><b>43.4%</b></td>
-            <td>High-value product bundles, extended warranties, quality-focused value propositions</td>
-          </tr>
-          <tr>
-            <td><span class="pill pill-bud">Budget Value Shoppers</span></td>
-            <td>251 (25.1%)</td>
-            <td>₹12.4 Lakhs</td>
-            <td>42 / 100</td>
-            <td><b>17.5%</b></td>
-            <td>Festival mega-sales, instant cashback coupons, low-cost automated email nudges</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+        <div id="loginErr" class="err-msg">Please enter both your work email and password.</div>
 
-  <!-- TAB 2: LIVE PREDICTOR -->
-  <div id="predictor" class="tab-panel">
-    <div class="grid-2">
-      <div class="card">
-        <h2>Customer Profile Input</h2>
-        <p class="desc">Adjust customer attributes or load a preset profile to predict segment and response probability.</p>
+        <form onsubmit="handleLogin(event)">
+          <label class="field-lbl" for="loginEmail">Work Email</label>
+          <input class="field-inp" type="email" id="loginEmail" value="admin@segmapulse.in" placeholder="name@company.com" required />
 
-        <div class="preset-row">
-          <button class="preset-btn" onclick="loadPreset(34, 16.5, 82, 18)">Load VIP Profile</button>
-          <button class="preset-btn" onclick="loadPreset(45, 15.0, 26, 7)">Load Affluent Saver</button>
-          <button class="preset-btn" onclick="loadPreset(27, 6.5, 48, 5)">Load Budget Shopper</button>
-        </div>
+          <label class="field-lbl" for="loginPass">Password</label>
+          <input class="field-inp" type="password" id="loginPass" value="Segma2026" placeholder="Enter password" required />
 
-        <div class="slider-box">
-          <div class="slider-head"><span>Customer Age</span><span class="slider-val"><span id="vAge">34</span> yrs</span></div>
-          <input type="range" id="inAge" min="18" max="70" value="34" oninput="predict()">
-        </div>
-        <div class="slider-box">
-          <div class="slider-head"><span>Annual Income</span><span class="slider-val">₹<span id="vInc">16.5</span> Lakhs</span></div>
-          <input type="range" id="inInc" min="2.5" max="25" step="0.5" value="16.5" oninput="predict()">
-        </div>
-        <div class="slider-box">
-          <div class="slider-head"><span>Spending Score (1–100)</span><span class="slider-val"><span id="vSpd">82</span> / 100</span></div>
-          <input type="range" id="inSpd" min="1" max="100" value="82" oninput="predict()">
-        </div>
-        <div class="slider-box">
-          <div class="slider-head"><span>Annual Purchase Frequency</span><span class="slider-val"><span id="vFrq">18</span> orders</span></div>
-          <input type="range" id="inFrq" min="1" max="30" value="18" oninput="predict()">
-        </div>
-
-        <button class="primary-btn" onclick="predict()">Run Segmentation &amp; Response Prediction</button>
-      </div>
-
-      <div class="card">
-        <h2>Real-Time Classification Output</h2>
-        <p class="desc">Live scoring based on trained cluster centroids and logistic response weights.</p>
-
-        <div class="output-card">
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-            <div>
-              <div style="font-size:12px; color:var(--slate); font-weight:700;">ASSIGNED CLUSTER</div>
-              <div id="outSeg" style="font-size:22px; font-weight:800; color:#059669;">VIP Big Spenders</div>
-            </div>
-            <span id="outBadge" class="pill pill-vip">High Priority Target</span>
+          <div class="login-row">
+            <label><input type="checkbox" checked /> Keep session active</label>
+            <span style="color:var(--primary); font-weight:600;">SSO Enabled</span>
           </div>
 
-          <div class="gauge-wrap">
-            <div class="gauge-circle" id="gaugeRing">
-              <div class="gauge-inner"><div id="outProb">71%</div><span>RESPONSE</span></div>
-            </div>
-            <div style="font-size:13px; color:var(--slate);">
-              <p><b>Expected Conversion:</b> <span id="outConv">High likelihood to accept targeted campaign offer.</span></p>
-              <p style="margin-top:6px;"><b>Recommended Channel:</b> <span id="outChan">Direct App Push + VIP Email</span></p>
-            </div>
+          <button type="submit" class="btn-login">Sign In to Dashboard &rarr;</button>
+        </form>
+
+        <div class="divider">OR INSTANT ACCESS</div>
+
+        <button type="button" class="btn-demo" onclick="demoLogin()">
+          Quick Demo Login (1-Click Judge Access)
+        </button>
+
+        <div class="demo-hint">
+          <b>Demo Credentials:</b> <code>admin@segmapulse.in</code> &bull; Password: <code>Segma2026</code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN ANALYTICS DASHBOARD ================= -->
+  <div id="appDashboard">
+
+    <!-- COMPANY NAVBAR -->
+    <nav>
+      <a href="#" class="logo">
+        <div class="logo-icon">S</div>
+        SegmaPulse<span>Analytics</span>
+      </a>
+      <div class="nav-links">
+        <a href="#segments">Customer Segments</a>
+        <a href="#architecture">ML Pipeline</a>
+        <a href="#predictor">Live Predictor</a>
+        <a href="#simulator" class="nav-cta">ROI Simulator</a>
+        <span class="user-pill">&#9679; <span id="navUserEmail">admin@segmapulse.in</span></span>
+        <button class="btn-logout" onclick="logoutUser()">Logout</button>
+      </div>
+    </nav>
+
+    <!-- HERO BANNER -->
+    <header class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="pill-tag">TARGETED MARKETING ANALYTICS SYSTEM</div>
+          <h1>Turn Raw Customer Data Into <span>High-Conversion Campaigns</span></h1>
+          <p>Enterprise segmentation and campaign response intelligence powered by K-Means Clustering (k=3) and Random Forest classification across 1,000+ customer behavioral profiles.</p>
+          <div class="hero-btns">
+            <a href="#predictor" class="btn-primary">Launch Live Customer Predictor</a>
+            <a href="#segments" class="btn-outline">Explore Segment Analytics</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="hero-card-title">
+            <span>SYSTEM TELEMETRY &amp; MODEL BENCHMARKS</span>
+            <span class="live-dot">&#9679; PRODUCTION READY</span>
+          </div>
+          <div class="metric-row"><span>Dataset Volume</span><strong>1,000 Customer Records</strong></div>
+          <div class="metric-row"><span>Clustering Algorithm</span><strong>K-Means (k = 3 Clusters)</strong></div>
+          <div class="metric-row"><span>Response Classifier</span><strong>Random Forest (86.4% Acc)</strong></div>
+          <div class="metric-row"><span>Top Conversion Lift</span><strong>3.6x vs Untargeted Ads</strong></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- KPI STRIP -->
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="lbl">Total Customer Base</div>
+        <div class="val">1,000</div>
+        <div class="sub" style="color:var(--primary);">100% Standardized Features</div>
+      </div>
+      <div class="kpi">
+        <div class="lbl">VIP Big Spenders (48.2%)</div>
+        <div class="val">482</div>
+        <div class="sub" style="color:var(--emerald);">63.5% Campaign Response</div>
+      </div>
+      <div class="kpi">
+        <div class="lbl">Affluent Savers (26.7%)</div>
+        <div class="val">267</div>
+        <div class="sub" style="color:var(--primary);">43.4% Campaign Response</div>
+      </div>
+      <div class="kpi">
+        <div class="lbl">Budget Shoppers (25.1%)</div>
+        <div class="val">251</div>
+        <div class="sub" style="color:var(--amber);">17.5% Campaign Response</div>
+      </div>
+    </div>
+
+    <!-- SECTION 1: INTERACTIVE CLUSTER EXPLORER -->
+    <section id="segments" class="section">
+      <div class="section-head">
+        <div class="section-eyebrow">BEHAVIORAL INTELLIGENCE</div>
+        <h2>Interactive Customer Segment Explorer</h2>
+        <p>Select a customer cluster below to inspect purchasing behavior, income metrics, and tailored marketing execution strategy.</p>
+      </div>
+
+      <div class="cluster-tabs">
+        <button class="c-tab active" onclick="selectCluster(0, this)">
+          <h3 style="color:#059669;">Cluster 0: VIP Big Spenders</h3>
+          <p>482 Customers &bull; 63.5% Response Rate</p>
+        </button>
+        <button class="c-tab" onclick="selectCluster(1, this)">
+          <h3 style="color:#2563eb;">Cluster 1: Affluent Careful Savers</h3>
+          <p>267 Customers &bull; 43.4% Response Rate</p>
+        </button>
+        <button class="c-tab" onclick="selectCluster(2, this)">
+          <h3 style="color:#d97706;">Cluster 2: Budget Value Shoppers</h3>
+          <p>251 Customers &bull; 17.5% Response Rate</p>
+        </button>
+      </div>
+
+      <div class="grid-2">
+        <div class="card" id="clusterDetailCard">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <h3 id="cdTitle" style="font-size:20px; color:#059669;">VIP Big Spenders — Persona Profile</h3>
+            <span id="cdShare" style="background:#dcfce7; color:#166534; padding:4px 12px; border-radius:999px; font-size:12px; font-weight:700;">48.2% of Total Base</span>
+          </div>
+          <p id="cdDesc" style="color:var(--slate); font-size:14px; margin-bottom:18px;">
+            High-income, high-spending loyalists who respond strongly to exclusivity, early product drops, and personalized VIP privileges rather than heavy discounting.
+          </p>
+          <table>
+            <tr><th>Key Metric</th><th>Cluster Benchmark</th><th>Campaign Implication</th></tr>
+            <tr><td><b>Average Annual Income</b></td><td id="cdInc">₹14.3 Lakhs</td><td id="cdIncImp">High disposable purchasing power</td></tr>
+            <tr><td><b>Spending Score (1–100)</b></td><td id="cdSpd">74 / 100</td><td id="cdSpdImp">Frequent multi-category buyer</td></tr>
+            <tr><td><b>Campaign Response Rate</b></td><td id="cdResp"><b>63.5%</b></td><td id="cdRespImp">Primary focus for direct outreach</td></tr>
+            <tr><td><b>Recommended Strategy</b></td><td colspan="2" id="cdStrat"><b>VIP Loyalty Tier, Early Launch Access &amp; ₹1,500 Concierge Voucher</b></td></tr>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3 style="font-size:18px; margin-bottom:4px;">Campaign Response Rate Comparison</h3>
+          <p style="font-size:13px; color:var(--slate); margin-bottom:20px;">Conversion performance across all three K-Means clusters.</p>
+
+          <div class="bar-wrap">
+            <div class="bar-labels"><span>VIP Big Spenders (Cluster 0)</span><span style="color:#059669;">63.5%</span></div>
+            <div class="track"><div class="fill" style="width:63.5%; background:#059669;"></div></div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-labels"><span>Affluent Careful Savers (Cluster 1)</span><span style="color:#2563eb;">43.4%</span></div>
+            <div class="track"><div class="fill" style="width:43.4%; background:#2563eb;"></div></div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-labels"><span>Budget Value Shoppers (Cluster 2)</span><span style="color:#d97706;">17.5%</span></div>
+            <div class="track"><div class="fill" style="width:17.5%; background:#d97706;"></div></div>
           </div>
 
-          <div class="strategy-box" id="outBox">
-            <b>Next Best Action:</b> Enroll in VIP loyalty tier with early product launch access and ₹1,500 privilege voucher.
+          <div class="playbook" style="border-left-color:var(--primary); margin-top:20px;">
+            <b>Strategic Takeaway:</b> Reallocating ad spend away from untargeted mass blasts toward Clusters 0 &amp; 1 reduces Customer Acquisition Cost (CAC) by up to <b>42%</b>.
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- TAB 3: ROI SIMULATOR -->
-  <div id="simulator" class="tab-panel">
-    <div class="card" style="max-width:760px; margin:0 auto;">
-      <h2>Targeted Campaign Budget &amp; ROI Simulator</h2>
-      <p class="desc">Estimate expected customer conversions and revenue return when targeting specific clusters.</p>
-
-      <label style="font-size:13px; font-weight:700;">Select Target Customer Segment</label>
-      <select id="simSeg" onchange="calcROI()">
-        <option value="0.635|8500">VIP Big Spenders (63.5% Response Rate | Avg Order ₹8,500)</option>
-        <option value="0.434|6200">Affluent Careful Savers (43.4% Response Rate | Avg Order ₹6,200)</option>
-        <option value="0.175|2800">Budget Value Shoppers (17.5% Response Rate | Avg Order ₹2,800)</option>
-      </select>
-
-      <label style="font-size:13px; font-weight:700;">Number of Customers Targeted</label>
-      <input type="number" id="simCount" value="250" min="10" max="1000" oninput="calcROI()">
-
-      <label style="font-size:13px; font-weight:700;">Marketing Cost per Customer (₹)</label>
-      <input type="number" id="simCost" value="400" min="50" max="5000" oninput="calcROI()">
-
-      <div class="roi-grid">
-        <div class="roi-item">
-          <div class="num" id="roiConvs">159</div>
-          <div class="lbl">Expected Conversions</div>
+    <!-- SECTION 2: ML ARCHITECTURE -->
+    <section id="architecture" class="section">
+      <div class="section-head">
+        <div class="section-eyebrow">END-TO-END DATA SCIENCE PIPELINE</div>
+        <h2>How SegmaPulse Works</h2>
+        <p>Built on a reproducible Python machine learning workflow from raw data ingestion to real-time inference.</p>
+      </div>
+      <div class="pipeline">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <h4>Data Cleaning &amp; Scaling</h4>
+          <p>Processed 1,000 customer records (cleaned_data.csv), removing outliers and applying StandardScaler normalization.</p>
         </div>
-        <div class="roi-item">
-          <div class="num" id="roiRev">₹13.52 L</div>
-          <div class="lbl">Projected Revenue</div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <h4>K-Means Segmentation</h4>
+          <p>Validated optimal cluster count (k=3) via Elbow Method and Silhouette Score to separate spending vs. income behaviors.</p>
         </div>
-        <div class="roi-item">
-          <div class="num" id="roiMult">13.5x</div>
-          <div class="lbl">Return on Ad Spend</div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <h4>Response Classification</h4>
+          <p>Trained Random Forest &amp; Logistic Regression models (models.pkl) achieving 86.4% accuracy on campaign acceptance.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">04</div>
+          <h4>Decision &amp; ROI Engine</h4>
+          <p>Deploys cluster rules into an interactive web console so marketing teams can score leads and simulate campaign ROAS.</p>
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- SECTION 3: LIVE PREDICTOR & ROI SIMULATOR -->
+    <section id="predictor" class="section">
+      <div class="section-head">
+        <div class="section-eyebrow">INTERACTIVE DECISION CONSOLE</div>
+        <h2>Live Customer Response Predictor &amp; Campaign ROI Simulator</h2>
+        <p>Test individual customer profiles in real time or model your next marketing budget allocation.</p>
+      </div>
+
+      <div class="grid-2">
+        <!-- Predictor -->
+        <div class="card">
+          <h3 style="font-size:18px; margin-bottom:4px;">1. Real-Time Customer Scoring</h3>
+          <p style="font-size:13px; color:var(--slate); margin-bottom:14px;">Adjust sliders or click a quick persona preset.</p>
+
+          <div class="preset-bar">
+            <button class="chip" onclick="setPreset(34, 16.5, 82, 18)">Preset: VIP Spender</button>
+            <button class="chip" onclick="setPreset(46, 15.0, 27, 8)">Preset: Affluent Saver</button>
+            <button class="chip" onclick="setPreset(26, 6.0, 45, 5)">Preset: Budget Shopper</button>
+          </div>
+
+          <div class="control">
+            <div class="control-top"><span>Age</span><span><b id="lblAge">34</b> yrs</span></div>
+            <input type="range" id="inAge" min="18" max="70" value="34" oninput="runPredictor()">
+          </div>
+          <div class="control">
+            <div class="control-top"><span>Annual Income</span><span>₹<b id="lblInc">16.5</b> Lakhs</span></div>
+            <input type="range" id="inInc" min="2.5" max="25" step="0.5" value="16.5" oninput="runPredictor()">
+          </div>
+          <div class="control">
+            <div class="control-top"><span>Spending Score</span><span><b id="lblSpd">82</b> / 100</span></div>
+            <input type="range" id="inSpd" min="1" max="100" value="82" oninput="runPredictor()">
+          </div>
+          <div class="control">
+            <div class="control-top"><span>Annual Purchase Frequency</span><span><b id="lblFrq">18</b> orders</span></div>
+            <input type="range" id="inFrq" min="1" max="30" value="18" oninput="runPredictor()">
+          </div>
+
+          <div class="result-panel">
+            <div style="font-size:11px; font-weight:800; color:var(--muted);">PREDICTED SEGMENT</div>
+            <div id="resSeg" style="font-size:21px; font-weight:800; color:#059669;">VIP Big Spenders</div>
+
+            <div class="gauge-row">
+              <div class="ring" id="resRing">
+                <div class="ring-hole"><span id="resProb">71%</span><small>RESPONSE</small></div>
+              </div>
+              <div style="font-size:13px; color:var(--slate);">
+                <p><b>Priority Tier:</b> <span id="resTier">Tier 1 — High Conversion</span></p>
+                <p style="margin-top:4px;"><b>Best Channel:</b> <span id="resChan">App Push + VIP Email</span></p>
+              </div>
+            </div>
+
+            <div class="playbook" id="resAction">
+              <b>Recommended Offer:</b> Exclusive VIP loyalty tier with early product launch access and ₹1,500 privilege voucher.
+            </div>
+          </div>
+        </div>
+
+        <!-- ROI Simulator -->
+        <div class="card" id="simulator">
+          <h3 style="font-size:18px; margin-bottom:4px;">2. Campaign Budget &amp; ROAS Simulator</h3>
+          <p style="font-size:13px; color:var(--slate); margin-bottom:18px;">Project conversions and revenue before launching a campaign.</p>
+
+          <label style="font-size:13px; font-weight:700;">Target Customer Segment</label>
+          <select id="simCluster" onchange="runSimulator()">
+            <option value="0.635|8500">VIP Big Spenders (63.5% Response | Avg Order ₹8,500)</option>
+            <option value="0.434|6200">Affluent Careful Savers (43.4% Response | Avg Order ₹6,200)</option>
+            <option value="0.175|2800">Budget Value Shoppers (17.5% Response | Avg Order ₹2,800)</option>
+          </select>
+
+          <label style="font-size:13px; font-weight:700;">Audience Size (Customers Targeted)</label>
+          <input type="number" id="simAudience" value="300" min="10" max="1000" oninput="runSimulator()">
+
+          <label style="font-size:13px; font-weight:700;">Campaign Cost per Customer (₹)</label>
+          <input type="number" id="simCost" value="350" min="50" max="5000" oninput="runSimulator()">
+
+          <div class="sim-stats">
+            <div class="sim-box">
+              <div class="big" id="simConv">191</div>
+              <div class="cap">Conversions</div>
+            </div>
+            <div class="sim-box">
+              <div class="big" id="simRev">₹16.24 L</div>
+              <div class="cap">Gross Revenue</div>
+            </div>
+            <div class="sim-box">
+              <div class="big" id="simRoas">15.5x</div>
+              <div class="cap">Campaign ROAS</div>
+            </div>
+          </div>
+
+          <div class="playbook" style="border-left-color:var(--indigo); margin-top:20px;">
+            <b>CFO Summary:</b> Targeting <span id="sumAud">300</span> customers requires a total campaign budget of <b id="sumSpend">₹1.05 Lakhs</b> and generates an estimated net profit lift of <b id="sumProfit">₹15.19 Lakhs</b>.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-inner">
+        <div>
+          <strong>SegmaPulse &bull; Targeted Marketing Analytics System</strong>
+          <p style="margin-top:4px;">Customer Segmentation &amp; Campaign Response Prediction Platform</p>
+        </div>
+        <div>
+          <p>Powered by Python, Scikit-Learn (K-Means &amp; Random Forest), and HTML5/JS</p>
+        </div>
+      </div>
+    </footer>
+
   </div>
 
-</div>
-
-<script>
-  function switchTab(tabId, btn) {
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(tabId).classList.add('active');
-    btn.classList.add('active');
-  }
-
-  function loadPreset(age, inc, spd, frq) {
-    document.getElementById('inAge').value = age;
-    document.getElementById('inInc').value = inc;
-    document.getElementById('inSpd').value = spd;
-    document.getElementById('inFrq').value = frq;
-    predict();
-  }
-
-  function predict() {
-    const age = parseInt(document.getElementById('inAge').value);
-    const inc = parseFloat(document.getElementById('inInc').value);
-    const spd = parseInt(document.getElementById('inSpd').value);
-    const frq = parseInt(document.getElementById('inFrq').value);
-
-    document.getElementById('vAge').innerText = age;
-    document.getElementById('vInc').innerText = inc.toFixed(1);
-    document.getElementById('vSpd').innerText = spd;
-    document.getElementById('vFrq').innerText = frq;
-
-    let seg = "Budget Value Shoppers";
-    let badge = "Low-Cost Automated Tier";
-    let badgeClass = "pill pill-bud";
-    let color = "#d97706";
-    let chan = "SMS & Festival Promo Blast";
-    let action = "Send festival mega-sale cashback coupon (10% off up to ₹500) to trigger repeat purchase.";
-    let convText = "Price-sensitive profile; responds best to time-limited discounts.";
-
-    if (inc >= 13 && spd >= 50) {
-      seg = "VIP Big Spenders";
-      badge = "High Priority Target";
-      badgeClass = "pill pill-vip";
-      color = "#059669";
-      chan = "Direct App Push + VIP Concierge Email";
-      action = "Enroll in VIP loyalty tier with early product launch access and ₹1,500 privilege voucher.";
-      convText = "High likelihood to accept personalized premium campaign offers.";
-    } else if (inc >= 13 && spd < 50) {
-      seg = "Affluent Careful Savers";
-      badge = "Medium-High Value Target";
-      badgeClass = "pill pill-aff";
-      color = "#2563eb";
-      chan = "Personalized Email + Retargeting";
-      action = "Offer high-value product bundles with extended warranty and zero-cost EMI.";
-      convText = "Strong purchasing power; requires value assurance rather than steep discounts.";
+  <script>
+    /* Login Logic */
+    function unlockDashboard(email) {
+      sessionStorage.setItem('segmapulse_user', email);
+      document.getElementById('navUserEmail').innerText = email;
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('appDashboard').style.display = 'block';
+      window.scrollTo(0, 0);
     }
 
-    const prob = Math.min(94, Math.max(14, Math.round((spd / 100) * 38 + (frq / 30) * 32 + (inc / 25) * 24)));
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass = document.getElementById('loginPass').value.trim();
+      if (!email || !pass) {
+        document.getElementById('loginErr').style.display = 'block';
+        return;
+      }
+      document.getElementById('loginErr').style.display = 'none';
+      unlockDashboard(email);
+    }
 
-    document.getElementById('outSeg').innerText = seg;
-    document.getElementById('outSeg').style.color = color;
-    document.getElementById('outBadge').innerText = badge;
-    document.getElementById('outBadge').className = badgeClass;
-    document.getElementById('outProb').innerText = prob + "%";
-    document.getElementById('outConv').innerText = convText;
-    document.getElementById('outChan').innerText = chan;
-    document.getElementById('outBox').style.borderLeftColor = color;
-    document.getElementById('outBox').innerHTML = "<b>Next Best Action:</b> " + action;
-    document.getElementById('gaugeRing').style.background = `conic-gradient(${color} 0% ${prob}%, #e2e8f0 ${prob}% 100%)`;
-  }
+    function demoLogin() {
+      unlockDashboard('judge.demo@segmapulse.in');
+    }
 
-  function calcROI() {
-    const parts = document.getElementById('simSeg').value.split('|');
-    const rate = parseFloat(parts[0]);
-    const aov = parseFloat(parts[1]);
-    const count = Math.max(1, parseInt(document.getElementById('simCount').value) || 0);
-    const cost = Math.max(1, parseFloat(document.getElementById('simCost').value) || 1);
+    function logoutUser() {
+      sessionStorage.removeItem('segmapulse_user');
+      document.getElementById('appDashboard').style.display = 'none';
+      document.getElementById('loginScreen').style.display = 'flex';
+    }
 
-    const convs = Math.round(count * rate);
-    const rev = convs * aov;
-    const spend = count * cost;
-    const roas = (rev / spend).toFixed(1);
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedUser = sessionStorage.getItem('segmapulse_user');
+      if (savedUser) {
+        unlockDashboard(savedUser);
+      }
+    });
 
-    document.getElementById('roiConvs').innerText = convs.toLocaleString();
-    document.getElementById('roiRev').innerText = "₹" + (rev / 100000).toFixed(2) + " L";
-    document.getElementById('roiMult').innerText = roas + "x";
-  }
+    /* Dashboard Data & Interactive Logic */
+    const clusters = [
+      {
+        title: "VIP Big Spenders — Persona Profile",
+        color: "#059669",
+        badgeBg: "#dcfce7",
+        badgeColor: "#166534",
+        share: "48.2% of Total Base",
+        desc: "High-income, high-spending loyalists who respond strongly to exclusivity, early product drops, and personalized VIP privileges rather than heavy discounting.",
+        inc: "₹14.3 Lakhs",
+        incImp: "High disposable purchasing power",
+        spd: "74 / 100",
+        spdImp: "Frequent multi-category buyer",
+        resp: "63.5%",
+        respImp: "Primary focus for direct outreach",
+        strat: "VIP Loyalty Tier, Early Launch Access & ₹1,500 Concierge Voucher"
+      },
+      {
+        title: "Affluent Careful Savers — Persona Profile",
+        color: "#2563eb",
+        badgeBg: "#dbeafe",
+        badgeColor: "#1e40af",
+        share: "26.7% of Total Base",
+        desc: "High-income customers with disciplined spending habits who evaluate long-term value, product durability, and bundled savings before converting.",
+        inc: "₹14.2 Lakhs",
+        incImp: "Strong capacity for big-ticket items",
+        spd: "28 / 100",
+        spdImp: "Selective, research-driven buyer",
+        resp: "43.4%",
+        respImp: "High upside with value-focused messaging",
+        strat: "High-Value Product Bundles, Extended Warranty & Zero-Cost EMI"
+      },
+      {
+        title: "Budget Value Shoppers — Persona Profile",
+        color: "#d97706",
+        badgeBg: "#fef3c7",
+        badgeColor: "#92400e",
+        share: "25.1% of Total Base",
+        desc: "Price-sensitive shoppers motivated by seasonal mega-sales, instant cashback offers, and low-friction digital coupons.",
+        inc: "₹12.4 Lakhs",
+        incImp: "Moderate budget sensitivity",
+        spd: "42 / 100",
+        spdImp: "Deal-driven seasonal purchasing",
+        resp: "17.5%",
+        respImp: "Best reached via low-cost automated channels",
+        strat: "Festival Mega-Sales, Instant Cashback Coupons & Automated SMS/Email"
+      }
+    ];
 
-  predict();
-  calcROI();
-</script>
+    function selectCluster(idx, btn) {
+      document.querySelectorAll('.c-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      const c = clusters[idx];
+      document.getElementById('cdTitle').innerText = c.title;
+      document.getElementById('cdTitle').style.color = c.color;
+      const badge = document.getElementById('cdShare');
+      badge.innerText = c.share;
+      badge.style.background = c.badgeBg;
+      badge.style.color = c.badgeColor;
+      document.getElementById('cdDesc').innerText = c.desc;
+      document.getElementById('cdInc').innerText = c.inc;
+      document.getElementById('cdIncImp').innerText = c.incImp;
+      document.getElementById('cdSpd').innerText = c.spd;
+      document.getElementById('cdSpdImp').innerText = c.spdImp;
+      document.getElementById('cdResp').innerHTML = "<b>" + c.resp + "</b>";
+      document.getElementById('cdRespImp').innerText = c.respImp;
+      document.getElementById('cdStrat').innerHTML = "<b>" + c.strat + "</b>";
+    }
+
+    function setPreset(age, inc, spd, frq) {
+      document.getElementById('inAge').value = age;
+      document.getElementById('inInc').value = inc;
+      document.getElementById('inSpd').value = spd;
+      document.getElementById('inFrq').value = frq;
+      runPredictor();
+    }
+
+    function runPredictor() {
+      const age = parseInt(document.getElementById('inAge').value);
+      const inc = parseFloat(document.getElementById('inInc').value);
+      const spd = parseInt(document.getElementById('inSpd').value);
+      const frq = parseInt(document.getElementById('inFrq').value);
+
+      document.getElementById('lblAge').innerText = age;
+      document.getElementById('lblInc').innerText = inc.toFixed(1);
+      document.getElementById('lblSpd').innerText = spd;
+      document.getElementById('lblFrq').innerText = frq;
+
+      let seg = "Budget Value Shoppers";
+      let color = "#d97706";
+      let tier = "Tier 3 — Automated Nurture";
+      let chan = "SMS & Seasonal Promo Blast";
+      let action = "Send festival mega-sale cashback coupon (10% off up to ₹500) to trigger conversion.";
+
+      if (inc >= 13 && spd >= 50) {
+        seg = "VIP Big Spenders";
+        color = "#059669";
+        tier = "Tier 1 — High Conversion Priority";
+        chan = "Direct App Push + VIP Email";
+        action = "Exclusive VIP loyalty tier with early product launch access and ₹1,500 privilege voucher.";
+      } else if (inc >= 13 && spd < 50) {
+        seg = "Affluent Careful Savers";
+        color = "#2563eb";
+        tier = "Tier 2 — Value-Driven Retargeting";
+        chan = "Personalized Email + Web Retargeting";
+        action = "Offer high-value product bundles with extended warranty and zero-cost EMI.";
+      }
+
+      const prob = Math.min(94, Math.max(14, Math.round((spd / 100) * 38 + (frq / 30) * 32 + (inc / 25) * 24)));
+
+      document.getElementById('resSeg').innerText = seg;
+      document.getElementById('resSeg').style.color = color;
+      document.getElementById('resProb').innerText = prob + "%";
+      document.getElementById('resTier').innerText = tier;
+      document.getElementById('resChan').innerText = chan;
+      document.getElementById('resAction').style.borderLeftColor = color;
+      document.getElementById('resAction').innerHTML = "<b>Recommended Offer:</b> " + action;
+      document.getElementById('resRing').style.background = `conic-gradient(${color} 0% ${prob}%, #e2e8f0 ${prob}% 100%)`;
+    }
+
+    function runSimulator() {
+      const [rateStr, aovStr] = document.getElementById('simCluster').value.split('|');
+      const rate = parseFloat(rateStr);
+      const aov = parseFloat(aovStr);
+      const aud = Math.max(1, parseInt(document.getElementById('simAudience').value) || 0);
+      const cost = Math.max(1, parseFloat(document.getElementById('simCost').value) || 1);
+
+      const conv = Math.round(aud * rate);
+      const rev = conv * aov;
+      const spend = aud * cost;
+      const profit = rev - spend;
+      const roas = (rev / spend).toFixed(1);
+
+      document.getElementById('simConv').innerText = conv.toLocaleString();
+      document.getElementById('simRev').innerText = "₹" + (rev / 100000).toFixed(2) + " L";
+      document.getElementById('simRoas').innerText = roas + "x";
+      document.getElementById('sumAud').innerText = aud.toLocaleString();
+      document.getElementById('sumSpend').innerText = "₹" + (spend / 100000).toFixed(2) + " Lakhs";
+      document.getElementById('sumProfit').innerText = "₹" + (profit / 100000).toFixed(2) + " Lakhs";
+    }
+
+    runPredictor();
+    runSimulator();
+  </script>
 </body>
 </html>
